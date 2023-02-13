@@ -64,6 +64,7 @@ class Controller:
         flag = 0
         ## Time difference from which the motor runs its controller processes 
         delta_time = utime.ticks_ms() - self.time
+        
         #Loop handles motor updating its controller information
         if delta_time >= 10:
             self.encoder.read()

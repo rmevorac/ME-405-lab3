@@ -41,7 +41,7 @@ class MotorDriver:
         ## Sets up the in2pin for the motor to be push-pull
         pin2 = Pin(in2pin, Pin.OUT_PP)
         ## Creates the timer which will run the motor
-        timer = pyb.Timer(timer_num, freq=0xFFFF)
+        timer = pyb.Timer(timer_num, freq=0x4E20)
         self.pin_en = Pin(en_pin, Pin.OUT_OD, Pin.PULL_UP)
         self.ch1 = timer.channel(1, pyb.Timer.PWM, pin=pin1)
         self.ch2 = timer.channel(2, pyb.Timer.PWM, pin=pin2)

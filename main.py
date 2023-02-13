@@ -1,5 +1,5 @@
 """!
-@file basic_tasks.py
+@file main.py
     This file contains a demonstration program that runs some tasks, an
     inter-task shared variable, and a queue. The tasks don't really @b do
     anything; the example just shows how these elements are created and run.
@@ -44,51 +44,84 @@ def get_inputs():
 
 def task1_fun(shares):
     """!
-    Task which puts things into a share and a queue.
+    Motor 1
     @param shares A list holding the share and queue used by this task
     """
     # Get references to the share and queue which have been passed to this task
     my_share, my_queue = shares
-    
-    ## The creation of the motor 1 object
-    motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
-    ## The creation of the encoder 1 object
-    encoder1 = Encoder(Pin.board.PB6, Pin.board.PB7, 4)
-    ## Inputs from decoder
-    updated_params = get_inputs()
-    ## Once motor, encoder and params are collected they are used to create this controller 1 object
-    controller1 = Controller(updated_params[0] , updated_params[1], motor1, encoder1)  
 
-    while True:
+    while 1:
+        try:
+            if controller1.run():
+                u2.write(f"M1: {controller1.motor_data[0]}, {controller1.motor_data[1]}\r\n")
 
+        except KeyboardInterrupt:
+            motor1.set_duty_cycle(0)
+            print("motor shut off")
+            break
 
-        yield 0
+        yield
 
 
 def task2_fun(shares):
     """!
-    Task which takes things out of a queue and share and displays them.
-    @param shares A tuple of a share and queue from which this task gets data
+    Motor 2
+    @param shares A list holding the share and queue used by this task
     """
     # Get references to the share and queue which have been passed to this task
-    the_share, the_queue = shares
+    my_share, my_queue = shares
 
-    while True:
+    while 1:
+        try:
+            if controller2.run():
+                u2.write(f"M2: {controller2.motor_data[0]}, {controller2.motor_data[1]}\r\n")
 
+        except KeyboardInterrupt:
+            motor2.set_duty_cycle(0)
+            print("motor shut off")
+            break
 
-        yield 0
+        yield
 
 
 # This code creates a share, a queue, and two tasks, then starts the tasks. The
 # tasks run until somebody presses ENTER, at which time the scheduler stops and
 # printouts show diagnostic information about the tasks, share, and queue.
 if __name__ == "__main__":
-
-
-    # Create a share and a queue to test function and diagnostic printouts
+    ## Create a share to test function and diagnostic printouts
     share0 = task_share.Share('h', thread_protect=False, name="Share 0")
+
+    ## Create a queue to test function and diagnostic printouts
     q0 = task_share.Queue('L', 16, thread_protect=False, overwrite=False,
                           name="Queue 0")
+
+    ## Set up the USB-serial port for streaming data
+    u2 = pyb.UART(2, baudrate=115200)
+
+    ## The creation of the motor 1 object
+    motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
+
+    ## The creation of the motor 2 object
+    motor2 = MotorDriver(Pin.board.PA10, Pin.board.PB4, Pin.board.PB5, 3)
+
+    ## The creation of the encoder 1 object
+    encoder1 = Encoder(Pin.board.PB6, Pin.board.PB7, 4)
+
+    ## The creation of the encoder 2 object
+    encoder2 = Encoder(Pin.board.PC6, Pin.board.PC7, 8)
+
+    ## Inputs from decoder for controller1
+    updated_params1 = get_inputs()
+
+    ## Inputs from decoder for controller2
+    updated_params2 = get_inputs()
+
+    ## Once motor, encoder and params are collected they are used to create this controller 1 object
+    controller1 = Controller(updated_params1[0], updated_params1[1], motor1, encoder1)
+
+    ## Once motor, encoder and params are collected they are used to create this controller 2 object
+    controller2 = Controller(updated_params2[0], updated_params2[1], motor2, encoder2)
+
 
     # Create the tasks. If trace is enabled for any task, memory will be
     # allocated for state transition tracing, and the application will run out
@@ -98,6 +131,7 @@ if __name__ == "__main__":
                         profile=True, trace=False, shares=(share0, q0))
     task2 = cotask.Task(task2_fun, name="Task_2", priority=2, period=1500,
                         profile=True, trace=False, shares=(share0, q0))
+
     cotask.task_list.append(task1)
     cotask.task_list.append(task2)
 

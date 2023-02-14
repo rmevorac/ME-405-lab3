@@ -28,13 +28,12 @@ def get_inputs():
     @param      None
     @return     A tuple of the KP and setpoint values.
     """
-    # Set up the USB-serial port for listening for inputs
-    ser = pyb.UART(2, baudrate=115200, timeout=5)
-
     while 1:
         if ser.any():
             kp = float(ser.readline())
+            print(kp)
             setpoint = int(ser.readline())
+            print(setpoint)
             break
 
     # Close the USB-serial port
@@ -53,7 +52,7 @@ def task1_fun(shares):
     while 1:
         try:
             if controller1.run():
-                u2.write(f"M1: {controller1.motor_data[0]}, {controller1.motor_data[1]}\r\n")
+                u2.write(f"1 {controller1.motor_data[0]} {controller1.motor_data[1]}\r\n")
 
         except KeyboardInterrupt:
             motor1.set_duty_cycle(0)
@@ -74,7 +73,7 @@ def task2_fun(shares):
     while 1:
         try:
             if controller2.run():
-                u2.write(f"M2: {controller2.motor_data[0]}, {controller2.motor_data[1]}\r\n")
+                u2.write(f"2 {controller2.motor_data[0]} {controller2.motor_data[1]}\r\n")
 
         except KeyboardInterrupt:
             motor2.set_duty_cycle(0)
@@ -97,6 +96,8 @@ if __name__ == "__main__":
 
     ## Set up the USB-serial port for streaming data
     u2 = pyb.UART(2, baudrate=115200)
+    ## Set up the USB-serial port for listening for inputs
+    ser = pyb.UART(2, baudrate=115200, timeout=3)
 
     ## The creation of the motor 1 object
     motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
@@ -127,9 +128,9 @@ if __name__ == "__main__":
     # allocated for state transition tracing, and the application will run out
     # of memory after a while and quit. Therefore, use tracing only for 
     # debugging and set trace to False when it's not needed
-    task1 = cotask.Task(task1_fun, name="Task_1", priority=1, period=400,
+    task1 = cotask.Task(task1_fun, name="Task_1", priority=1, period=50,
                         profile=True, trace=False, shares=(share0, q0))
-    task2 = cotask.Task(task2_fun, name="Task_2", priority=2, period=1500,
+    task2 = cotask.Task(task2_fun, name="Task_2", priority=1, period=250,
                         profile=True, trace=False, shares=(share0, q0))
 
     cotask.task_list.append(task1)

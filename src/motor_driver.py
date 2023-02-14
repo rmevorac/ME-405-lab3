@@ -8,6 +8,9 @@
 
 @date   2023-Feb-10
 """
+"""!
+@package pyb                Contains all micro controller tools we use.
+"""
 import pyb
 from pyb import Pin as Pin
 

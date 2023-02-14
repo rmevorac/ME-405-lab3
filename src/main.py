@@ -1,15 +1,29 @@
 """!
 @file main.py
-    This file contains a demonstration program that runs some tasks, an
-    inter-task shared variable, and a queue. The tasks don't really @b do
-    anything; the example just shows how these elements are created and run.
+    The code is for a control system for two motors. The system first initializes a USB-serial
+    communication to receive inputs from the decoder, including the KP and setpoint values.
+    Then two motor objects, two encoder objects, and two controller objects are created using the
+    motor and encoder objects and the KP and setpoint values. Finally, two tasks are created to
+    control each motor using its corresponding controller object, and these tasks run in a cooperative
+    multitasking environment provided by the cotask module. The system streams data to the USB-serial
+    port and receives inputs from the same port.
 
-@author JR Ridgely
-@date   2021-Dec-15 JRR Created from the remains of previous example
-@copyright (c) 2015-2021 by JR Ridgely and released under the GNU
-    Public License, Version 2. 
+@author Ben Elkayam
+@author Roey Mevorach
+@author Ermias Yemane
+
+@date   2023-Feb-13
 """
-
+"""!
+@package gc                 Contains a garbage collector tool.
+@package pyb                Contains all micro controller tools we use.
+@package cotask             Contains the class to run cooperatively scheduled tasks in amultitasking system.
+@package task_share         Contains the class that allows tasks to share data without the risk
+                            of data corruption by interrupts.
+@package encoder_reader     Contains our encoder driver class and data.
+@package motor_driver       Contains our motor driver class that interfaces with the encoder.
+@package controller         Contains our controller class which combines the motor and encode classes.
+"""
 import gc
 import pyb
 import cotask
@@ -36,18 +50,22 @@ def get_inputs():
             print(setpoint)
             break
 
-    # Close the USB-serial port
-    #ser.deinit()
-
     return (kp, setpoint)
 
 def task1_fun(shares):
     """!
-    Motor 1
-    @param shares A list holding the share and queue used by this task
+    @brief      This function executes task1 by continuously checking if the controller1 has new data and,
+                if so, writing it to the u2 share.
+    @details    The function takes in a tuple of two shares, one for the `my_share` and one for the `my_queue`.
+                It then enters a while loop that runs indefinitely, checking if the `controller1.run()` method
+                returns `True` and, if so, writing the first and second elements of `controller1.motor_data`
+                to the `u2` share. If a KeyboardInterrupt is raised, the motor is shut off and the loop is broken.
+                The function yields control after each iteration of the loop.
+    @param      shares A tuple of two shares, one for `my_share` and one for `my_queue`.
+    @return     None
     """
     # Get references to the share and queue which have been passed to this task
-    my_share, my_queue = shares
+    # my_share, my_queue = shares
 
     while 1:
         try:
@@ -64,11 +82,18 @@ def task1_fun(shares):
 
 def task2_fun(shares):
     """!
-    Motor 2
-    @param shares A list holding the share and queue used by this task
+    @brief      This function executes task2 by continuously checking if the controller2 has new data and,
+                if so, writing it to the u2 share.
+    @details    The function takes in a tuple of two shares, one for the `my_share` and one for the `my_queue`.
+                It then enters a while loop that runs indefinitely, checking if the `controller2.run()` method
+                returns `True` and, if so, writing the first and second elements of `controller2.motor_data`
+                to the `u2` share. If a KeyboardInterrupt is raised, the motor is shut off and the loop is broken.
+                The function yields control after each iteration of the loop.
+    @param      shares A tuple of two shares, one for `my_share` and one for `my_queue`.
+    @return     None
     """
     # Get references to the share and queue which have been passed to this task
-    my_share, my_queue = shares
+    # my_share, my_queue = shares
 
     while 1:
         try:

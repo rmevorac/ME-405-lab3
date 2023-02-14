@@ -14,6 +14,11 @@
 
 @date   2023-Feb-13
 """
+"""
+@package serial             Contains the tools used for working with serial connections.
+@package array              Contains the array class.
+@package matplotlib         Contains the tool to plot and chart for both 2D and 3D data representation.
+"""
 import serial
 import array
 from matplotlib import pyplot as plt

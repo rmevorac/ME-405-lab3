@@ -8,6 +8,9 @@ This file is the boot script for the motor control system. This script just turn
 
 @date   2023-Feb-10
 """
+"""
+@package pyb                Contains all micro controller tools we use.
+"""
 import pyb
 # Turn off the REPL on UART2
 pyb.repl_uart(None)

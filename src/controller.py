@@ -10,9 +10,10 @@
 @date   2023-Feb-10
 """
 """
-@package pyb Contains all micro controller tools we use
-@package encoder_reader Contains our encoder driver tools and data
-@package motor_driver Contains our motor driver tools and interfaces with the encoder
+@package pyb                Contains all micro controller tools we use.
+@package utime              Contains tools for working with time-related operations.
+@package encoder_reader     Contains our encoder driver tools and data.
+@package motor_driver       Contains our motor driver tools and interfaces with the encoder.
 """
 import pyb, utime
 from pyb import Pin as Pin

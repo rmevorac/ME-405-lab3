@@ -2,7 +2,7 @@
 ## ME 405 Lab 3: On Schedule
 
 ### Brief Summary
-This README is for the ME-405-lab3 repository. This project attempts to integrate our previous motor controller system into a cooperative multi-tasking system. This was done through integrating our working motor controller code with the shares and cotask system developed by the ME405 department (Dr. Ridgley{aka Spluttflob}). What this achieved is making a control system capable of operating several motors and encoders.
+This README is for the ME-405-lab3 repository. This project attempts to integrate our previous motor controller system into a cooperative multi-tasking system. This was done through integrating our working motor controller code with the shares and cotask system developed by the ME405 department (Dr. Ridgley{aka Spluttflob}). What this achieved is making a control system capable of operating several motors and encoders. This README also includes testing results to determine the optimal task peroid for running multiple tasks. 
 
 ---
 
@@ -71,6 +71,8 @@ For our multi-task controller we want to determine the slowest period where the 
 ## Conclusions to be drawn
 As is obvious by the plots above, there is a loss of resolution and accuracy as the task peroid slows, for a much more obvious comparsion here is a side by side of 50ms and 250ms :
 
-## 50ms vs 250ms
+### 50ms vs 250ms
 ![alttext](TestImages/PC50.png)![alttext](TestImages/PC250.png)
 
+## Results of Testing
+We can see that **the optimal peroid for high resolution and minimal compuation is between 50ms to 75ms.** It is likley safe to defer to 50ms for update time and if tasks are running into eachother then increase it to a maximum of 75ms.

@@ -30,8 +30,12 @@ This section contains detailed information on specific programs and aspects of t
 ## Characteristics of various Task Peroids and finding the optimal Peroid.
 For our multi-task controller we want to determine the slowest period where the motor controller no long provides a reliable step response. We tested a variety of task peroids on two motors in tandem to showcase the decay in quality and resolution:
 
+
 ### Datum Frequency: 10 ms
-![alttext](TestImages/P1F10.png)        ![alttext](TestImages/P2F10.png)
+               Motor 1     |  Motor 2
+:-------------------------:|:-------------------------:
+![alttext](TestImages/P1F10.png)  |  ![alttext](TestImages/P2F10.png)
+       
 
 ---
 

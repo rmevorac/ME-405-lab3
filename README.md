@@ -32,5 +32,5 @@ This section contains detailed information on specific programs and aspects of t
 In order to properly document the motor controlelr various step responses where tested to see how the motor would respond under our controller. In order to ensure our motor controller operated as expected, an Underdamped, Overdamped and a "Perfectly Damped" *Kp*s where found.
 
 ### Underdamped Response
-![TestImages/P1F50]
+![TestImages/P1F50])(P1F50.png)
 

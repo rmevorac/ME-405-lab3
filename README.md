@@ -65,3 +65,12 @@ For our multi-task controller we want to determine the slowest period where the 
 
 ### 500 ms
 ![alttext](TestImages/P1F500.png)![alttext](TestImages/P2F500.png)
+
+---
+
+## Conclusions to be drawn
+As is obvious by the plots above, there is a loss of resolution and accuracy as the task peroid slows, for a much more obvious comparsion here is a side by side of 50ms and 250ms :
+
+## 50ms vs 250ms
+![alttext](TestImages/PC50.png)![alttext](TestImages/PC250.png)
+

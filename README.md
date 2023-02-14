@@ -75,4 +75,4 @@ As is obvious by the plots above, there is a loss of resolution and accuracy as 
 ![alttext](TestImages/PC50.png)![alttext](TestImages/PC250.png)
 
 ## Results of Testing
-We can see that **the optimal peroid for high resolution and minimal compuation is between 50ms to 75ms.** It is likley safe to defer to 50ms for update time and if tasks are running into eachother then increase it to a maximum of 75ms.
+We can see that **the optimal peroid for high resolution and minimal computation is between 50ms to 75ms.** It is likley safe to defer to 50ms for update time and if tasks are running into eachother then increase it to a maximum of 75ms.

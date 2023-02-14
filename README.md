@@ -32,37 +32,36 @@ For our multi-task controller we want to determine the slowest period where the 
 
 
 ### Datum Frequency: 10 ms
-               Motor 1     |  Motor 2
-:-------------------------:|:-------------------------:
-![alttext](TestImages/P1F10.png)  |  ![alttext](TestImages/P2F10.png)
+
+![alttext](TestImages/P1F10.png)![alttext](TestImages/P2F10.png)
        
 
 ---
 
 ### 25 ms
-![alttext](TestImages/P1F25.png)        ![alttext](TestImages/P2F25.png)
+![alttext](TestImages/P1F25.png)![alttext](TestImages/P2F25.png)
 
 ---
 
 ### 50 ms
-![alttext](TestImages/P1F50.png)        ![alttext](TestImages/P2F50.png)
+![alttext](TestImages/P1F50.png)![alttext](TestImages/P2F50.png)
 
 ---
 
 ### 75 ms
-![alttext](TestImages/P1F75.png)        ![alttext](TestImages/P2F75.png)
+![alttext](TestImages/P1F75.png)![alttext](TestImages/P2F75.png)
 
 ---
 
 ### 100 ms
-![alttext](TestImages/P1F100.png)        ![alttext](TestImages/P2F100.png)
+![alttext](TestImages/P1F100.png)![alttext](TestImages/P2F100.png)
 
 ---
 
 ### 250 ms
-![alttext](TestImages/P1F250.png)        ![alttext](TestImages/P2F250.png)
+![alttext](TestImages/P1F250.png)![alttext](TestImages/P2F250.png)
 
 ---
 
 ### 500 ms
-![alttext](TestImages/P1F500.png)        ![alttext](TestImages/P2F500.png)
+![alttext](TestImages/P1F500.png)![alttext](TestImages/P2F500.png)
